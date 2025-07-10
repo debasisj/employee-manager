@@ -1,46 +1,76 @@
-# Getting Started with Create React App
+# Employee Manager
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is a full-stack Employee Management application built with **React** (frontend) and a **Java REST API** (backend). It allows you to create, view, edit, and delete employees, with roles such as Director, Tech, and Product. The UI uses Material-UI (MUI) for a modern look and feel.
+
+## Features
+
+- List all employees with their name and role
+- Add a new employee
+- Edit existing employee details
+- Delete employees
+- Success and error banners for user actions
+- Accessible and tested with React Testing Library and Playwright
+
+## Project Structure
+
+- **/src**: React frontend code (components, services, tests)
+- **/rest-app**: Java REST API (run as a JAR)
+- **/playwright-tests**: End-to-end tests using Playwright
 
 ## Available Scripts
 
 In the project directory, you can run:
 
-### `npm start`
+### `npm run start:rest`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Starts the Java REST API backend (`rest-app/rest-0.0.1-SNAPSHOT.jar`) on [http://localhost:8080](http://localhost:8080).
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### `npm run start:react`
+
+Starts the React frontend on [http://localhost:3000](http://localhost:3000).
+
+### `npm run start:all`
+
+Starts both the REST API and React frontend in parallel.
 
 ### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Runs the React unit and integration tests using React Testing Library and Jest.
+
+### `npm run test:e2e`
+
+Starts both backend and frontend, then runs Playwright end-to-end tests (see `playwright-tests/`).
 
 ### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Builds the React app for production to the `build` folder.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Testing
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- **Unit/Integration:** Run `npm test` for React component and service tests.
+- **E2E:** Run `npm run test:e2e` for Playwright browser-based tests.  
+  Make sure both backend and frontend are not already running, as the script will start them.
 
-### `npm run eject`
+## Tech Stack
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- **Frontend:** React, TypeScript, Material-UI (MUI)
+- **Backend:** Java (Spring Boot REST API)
+- **Testing:** Jest, React Testing Library, Playwright
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Getting Started
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+1. Make sure you have Java and Node.js installed.
+2. Backend JAR already provided in the repo at  `rest-app/rest-0.0.1-SNAPSHOT.jar`. Source project can be found here - https://github.com/debasisj/tut-rest
+3. Install dependencies:  
+   `npm install`
+4. Start both servers:  
+   `npm run start:all`
+5. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## License
 
-## Learn More
+MIT
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+---
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+*This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).*
