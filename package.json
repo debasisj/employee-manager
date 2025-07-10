@@ -27,7 +27,7 @@
     "start:react": "react-scripts start",
     "start:all": "concurrently \"npm run start:rest\" \"npm run start:react\"",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --watchAll=false",
     "test:e2e:only": "playwright test",
     "test:e2e": "start-server-and-test start:all http://localhost:3000 test:e2e:only",
     "eject": "react-scripts eject"
