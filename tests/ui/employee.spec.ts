@@ -1,3 +1,4 @@
+
 import { test, expect } from '@playwright/test';
 
 test('homepage should show company name', async ({ page }) => {
