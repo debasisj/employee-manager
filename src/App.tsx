@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { ThemeProvider, createTheme, CssBaseline } from '@mui/material';
 import EmployeeList from './components/EmployeeList';
 import EmployeeForm from './components/EmployeeForm';
-import { Container, Paper } from '@mui/material';
+import { Container, Paper, Typography } from '@mui/material';
 
 const darkTheme = createTheme({
   palette: {
@@ -16,7 +16,10 @@ function App() {
 
   return (
     <ThemeProvider theme={darkTheme}>
-      <Container maxWidth="sm" sx={{ mt: 4 }}>
+      <Typography variant="h4" align="center" gutterBottom>
+        Employees of Bini corporation
+      </Typography>
+      <Container maxWidth="lg" sx={{ mt: 4 }}>
         <Paper sx={{ p: 3 }}>
           <EmployeeForm
             employee={editingEmployee}
