@@ -27,14 +27,14 @@ export default function EmployeeList({ onEdit }: { onEdit: (employee: Employee) 
     return (
         <div>
             <Typography variant="h5" gutterBottom>Employees</Typography>
-            <List>
+            <List role='list' aria-label='Employee List' id='EmpListId'>
                 {employees.map(emp => (
-                    <ListItem
+                    <ListItem role='listitem' aria-label='Employee List Item'
                         key={emp._links.self.href}
                         secondaryAction={
                             <>
-                                <Button onClick={() => onEdit(emp)}>Edit</Button>
-                                <IconButton edge="end" onClick={() => handleDelete(emp._links.self.href)}>
+                                <Button aria-label='Employee Edit' id='EmpEditId' onClick={() => onEdit(emp)}>Edit</Button>
+                                <IconButton role='button' aria-label='delete' id='EmpDelete' edge="end" onClick={() => handleDelete(emp._links.self.href)}>
                                     <DeleteIcon color='error' />
                                 </IconButton>
                             </>

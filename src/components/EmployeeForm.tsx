@@ -30,11 +30,13 @@ export default function EmployeeForm({ employee, onSuccess }: { employee?: Emplo
     };
 
     return (
-        <Box component="form" onSubmit={handleSubmit} sx={{ mb: 2 }}>
+        <Box component="form" role='form' aria-lable='Employee Form' id='EmpFormId' onSubmit={handleSubmit} sx={{ mb: 2 }}>
             <Typography variant="h6">{employee ? 'Edit Employee' : 'Add Employee'}</Typography>
             <TextField
                 label="Name"
-                value={name}
+                value='Employee Name'
+                role="textbox"
+                aria-label="Employee name"
                 onChange={e => setName(e.target.value)}
                 required
                 fullWidth
@@ -42,13 +44,17 @@ export default function EmployeeForm({ employee, onSuccess }: { employee?: Emplo
             />
             <TextField
                 label="Role"
+                name="Employee Role"
+                role="textbox"
+                aria-label="Employee role"
                 value={role}
                 onChange={e => setRole(e.target.value)}
                 required
                 fullWidth
                 sx={{ mb: 2 }}
             />
-            <Button type="submit" variant="contained" color='success'>{employee ? 'Update' : 'Create'}</Button>
+            <Button type="submit" variant="contained" color='success' role="button"
+                aria-label="Create employee">{employee ? 'Update' : 'Create'}</Button>
         </Box>
     );
 }
