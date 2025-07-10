@@ -23,6 +23,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "lint": "eslint src --ext .js,.jsx,.ts,.tsx",
     "start:rest": "java -jar rest-app/rest-0.0.1-SNAPSHOT.jar",
     "start:react": "react-scripts start",
     "start:all": "concurrently \"npm run start:rest\" \"npm run start:react\"",
@@ -58,6 +59,7 @@
   "devDependencies": {
     "@playwright/test": "^1.53.2",
     "concurrently": "^9.2.0",
+    "eslint": "^8.57.1",
     "start-server-and-test": "^2.0.12"
   }
 }

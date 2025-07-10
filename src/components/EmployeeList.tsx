@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getEmployees, deleteEmployee } from '../services/employeeService';
-import { Box, Button, List, ListItem, ListItemText, IconButton, Typography, Alert } from '@mui/material';
+import { Box, Button, List, ListItem, IconButton, Typography, Alert } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 interface Employee {

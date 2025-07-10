@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { ThemeProvider, createTheme, CssBaseline } from '@mui/material';
+import { ThemeProvider, createTheme } from '@mui/material';
 import EmployeeList from './components/EmployeeList';
 import EmployeeForm from './components/EmployeeForm';
-import { Alert, Container, Paper, Typography } from '@mui/material';
+import { Container, Paper, Typography } from '@mui/material';
 
 const darkTheme = createTheme({
   palette: {
@@ -37,5 +37,4 @@ function App() {
     </ThemeProvider>
   );
 }
-
 export default App;

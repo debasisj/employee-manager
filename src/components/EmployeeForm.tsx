@@ -13,6 +13,7 @@ export default function EmployeeForm({ employee, onSuccess }: { employee?: Emplo
     useEffect(() => {
         setForm(employee || { name: '', role: '' });
     }, [employee]);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null);
 
