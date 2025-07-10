@@ -35,7 +35,7 @@ export default function EmployeeList({ onEdit }: { onEdit: (employee: Employee) 
                             <>
                                 <Button onClick={() => onEdit(emp)}>Edit</Button>
                                 <IconButton edge="end" onClick={() => handleDelete(emp._links.self.href)}>
-                                    <DeleteIcon />
+                                    <DeleteIcon color='error' />
                                 </IconButton>
                             </>
                         }
@@ -44,7 +44,7 @@ export default function EmployeeList({ onEdit }: { onEdit: (employee: Employee) 
                     </ListItem>
                 ))}
             </List>
-            <Button variant="contained" onClick={fetchEmployees}>Refresh</Button>
+            <Button variant="contained" color='secondary' onClick={fetchEmployees}>Refresh</Button>
         </div>
     );
 }

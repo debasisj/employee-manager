@@ -48,7 +48,7 @@ export default function EmployeeForm({ employee, onSuccess }: { employee?: Emplo
                 fullWidth
                 sx={{ mb: 2 }}
             />
-            <Button type="submit" variant="contained">{employee ? 'Update' : 'Create'}</Button>
+            <Button type="submit" variant="contained" color='success'>{employee ? 'Update' : 'Create'}</Button>
         </Box>
     );
 }
