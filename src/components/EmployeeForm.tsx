@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { createEmployee, updateEmployee } from '../services/employeeService';
-import { Button, TextField, Box, Typography } from '@mui/material';
+import { Alert, Button, TextField, Box, Typography } from '@mui/material';
 
 interface Employee {
     name: string;
@@ -9,45 +9,64 @@ interface Employee {
 }
 
 export default function EmployeeForm({ employee, onSuccess }: { employee?: Employee, onSuccess: () => void }) {
-    const [name, setName] = useState('');
-    const [role, setRole] = useState('');
-
+    const [form, setForm] = useState(employee || { name: '', role: '' });
     useEffect(() => {
-        setName(employee?.name || '');
-        setRole(employee?.role || '');
+        setForm(employee || { name: '', role: '' });
     }, [employee]);
+    const [loading, setLoading] = useState(false);
+    const [message, setMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null);
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setForm({ ...form, [e.target.name]: e.target.value });
+    };
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        if (employee && employee._links) {
-            await updateEmployee(employee._links.self.href, { name, role });
-        } else {
-            await createEmployee({ name, role });
+        setLoading(true);
+        setMessage(null);
+        try {
+            if (employee && employee._links) {
+                await updateEmployee(employee._links.self.href, form);
+                setMessage({ type: 'success', text: 'Employee updated successfully!' });
+            } else {
+                await createEmployee(form);
+                setMessage({ type: 'success', text: 'Employee created successfully!' });
+            }
+            onSuccess();
+            setForm({ name: '', role: '' });
+        } catch (error) {
+            setMessage({ type: 'error', text: 'Something went wrong. Please try again.' });
+        } finally {
+            setLoading(false);
         }
-        setName('');
-        setRole('');
-        onSuccess();
     };
 
     return (
         <Box component="form" role='form' aria-label='Employee Form' id='EmpFormId' onSubmit={handleSubmit} sx={{ mb: 2 }}>
+            {message && (
+                <Alert severity={message.type} onClose={() => setMessage(null)} sx={{ mb: 2 }}>
+                    {message.text}
+                </Alert>
+            )}
             <Typography variant="h6">{employee ? 'Edit Employee' : 'Add Employee'}</Typography>
             <TextField
                 label="Name"
-                name="Employee Name"
+                name="name"
+                value={form.name}
                 role="textbox"
                 aria-label="Employee name"
-                onChange={e => setName(e.target.value)}
+                onChange={handleChange}
                 required
                 fullWidth
                 sx={{ mb: 2 }}
             />
             <TextField
                 label="Role"
-                name="Employee Role"
-                role="textbox"
+                name="role"
+                value={form.role}
+                role="listbox"
                 aria-label="Employee role"
-                onChange={e => setRole(e.target.value)}
+                onChange={handleChange}
                 required
                 fullWidth
                 sx={{ mb: 2 }}

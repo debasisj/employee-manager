@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { ThemeProvider, createTheme, CssBaseline } from '@mui/material';
 import EmployeeList from './components/EmployeeList';
 import EmployeeForm from './components/EmployeeForm';
-import { Container, Paper, Typography } from '@mui/material';
+import { Alert, Container, Paper, Typography } from '@mui/material';
 
 const darkTheme = createTheme({
   palette: {
@@ -30,7 +30,7 @@ function App() {
           />
           <EmployeeList
             key={refresh}
-            onEdit={emp => setEditingEmployee(emp)}
+            onEdit={emp => setEditingEmployee({ ...emp })}
           />
         </Paper>
       </Container>
