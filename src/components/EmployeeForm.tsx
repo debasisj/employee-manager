@@ -54,6 +54,8 @@ export default function EmployeeForm({ employee, onSuccess }: { employee?: Emplo
                 name="name"
                 value={form.name}
                 role="textbox"
+
+                inputProps={{ 'data-testid': 'EmpFormNameId' }}
                 aria-label="Employee name"
                 onChange={handleChange}
                 required
@@ -64,7 +66,8 @@ export default function EmployeeForm({ employee, onSuccess }: { employee?: Emplo
                 label="Role"
                 name="role"
                 value={form.role}
-                role="listbox"
+                role="textbox"
+                inputProps={{ 'data-testid': 'EmpFormRoleId' }}
                 aria-label="Employee role"
                 onChange={handleChange}
                 required

@@ -33,8 +33,8 @@ export default function EmployeeList({ onEdit }: { onEdit: (employee: Employee) 
                 </Alert>
             )}
             <Box sx={{ display: 'flex', width: '100%', fontWeight: 'bold', mb: 1, px: 2 }}>
-                <Box sx={{ flex: 1, textAlign: 'left' }}>Name</Box>
-                <Box sx={{ flex: 1, textAlign: 'left' }}>Role</Box>
+                <Box sx={{ flex: 1, textAlign: 'left' }} aria-label='EmpListNameHeader'>Name</Box>
+                <Box sx={{ flex: 1, textAlign: 'left' }} aria-label='EmpListRoleHeader'>Role</Box>
             </Box>
             <List role='list' aria-label='Employee List' id='EmpListId'>
                 {employees.map(emp => (
@@ -43,13 +43,12 @@ export default function EmployeeList({ onEdit }: { onEdit: (employee: Employee) 
                         sx={{ px: 2 }}
                         secondaryAction={
                             <>
-                                <Button aria-label='Employee Edit' id='EmpEditId' onClick={() => onEdit(emp)}>Edit</Button>
+                                <Button aria-label='edit' id='EmpEditId' onClick={() => onEdit(emp)}>Edit</Button>
                                 <IconButton role='button' aria-label='delete' id='EmpDelete' edge="end" onClick={() => handleDelete(emp._links.self.href)}>
                                     <DeleteIcon color='error' />
                                 </IconButton>
                             </>
                         }
-
                     >
                         <Box sx={{ display: 'flex', width: '100%' }}>
                             <Box sx={{ flex: 1, textAlign: 'left' }}>{emp.name || 'Ghost'}</Box>
