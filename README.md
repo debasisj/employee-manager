@@ -60,7 +60,7 @@ Builds the React app for production to the `build` folder.
 ## Getting Started
 
 1. Make sure you have Java and Node.js installed.
-2. Backend JAR already provided in the repo at  `rest-app/rest-0.0.1-SNAPSHOT.jar`. Source project can be found here - https://github.com/debasisj/tut-rest
+2. Backend JAR already provided in the repo at  `rest-app/rest-0.0.1-SNAPSHOT.jar`
 3. Install dependencies:  
    `npm install`
 4. Start both servers:  
