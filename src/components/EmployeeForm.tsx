@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { createEmployee, updateEmployee } from '../services/employeeService';
-import { Alert, Button, TextField, Box, Typography } from '@mui/material';
+import { Alert, Button, TextField, Box, Typography, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 
 interface Employee {
     name: string;
@@ -17,8 +17,10 @@ export default function EmployeeForm({ employee, onSuccess }: { employee?: Emplo
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null);
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setForm({ ...form, [e.target.name]: e.target.value });
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement> | any) => {
+        const name = e.target.name;
+        const value = e.target.value;
+        setForm({ ...form, [name]: value });
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -63,18 +65,26 @@ export default function EmployeeForm({ employee, onSuccess }: { employee?: Emplo
                 fullWidth
                 sx={{ mb: 2 }}
             />
-            <TextField
-                label="Role"
-                name="role"
-                value={form.role}
-                role="textbox"
-                inputProps={{ 'data-testid': 'EmpFormRoleId' }}
-                aria-label="Employee role"
-                onChange={handleChange}
-                required
-                fullWidth
-                sx={{ mb: 2 }}
-            />
+            <FormControl fullWidth sx={{ mb: 2 }}>
+                <InputLabel id="role-label">Role</InputLabel>
+                <Select
+                    labelId="role-label"
+                    name="role"
+                    value={form.role}
+                    label="Role"
+                    onChange={handleChange}
+                    inputProps={{ 'data-testid': 'EmpFormRoleId' }}
+                    aria-label="Employee role"
+                    required
+                >
+                    <MenuItem value="Developer">Developer</MenuItem>
+                    <MenuItem value="Manager">Manager</MenuItem>
+                    <MenuItem value="Designer">Designer</MenuItem>
+                    <MenuItem value="QA Engineer">QA Engineer</MenuItem>
+                    <MenuItem value="DevOps">DevOps</MenuItem>
+                    <MenuItem value="Product Manager">Product Manager</MenuItem>
+                </Select>
+            </FormControl>
             <Button type="submit" variant="contained" color='success' role="button"
                 aria-label="Create employee">{employee ? 'Update' : 'Create'}</Button>
         </Box>

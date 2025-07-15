@@ -3,7 +3,7 @@ import fs from 'fs';
 import { test as base } from '@playwright/test';
 
 export const log = base.extend<{ saveLogs: void }>({
-    saveLogs: [async ({ }, use, testInfo) => {
+    saveLogs: [async (_, use, testInfo) => {
         // Collecting logs during the test.
         const logs: string[] = [];
         debug.log = (...args: any[]) => logs.push(args.map(String).join(''));

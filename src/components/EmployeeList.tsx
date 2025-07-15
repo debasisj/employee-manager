@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { getEmployees, deleteEmployee } from '../services/employeeService';
-import { Box, Button, List, ListItem, IconButton, Typography, Alert } from '@mui/material';
+import { Box, Button, List, ListItem, IconButton, Typography, Alert, Dialog, DialogTitle, DialogContent, DialogActions, DialogContentText } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
+import WarningIcon from '@mui/icons-material/Warning';
 
 interface Employee {
     name: string;
@@ -11,6 +12,8 @@ interface Employee {
 
 export default function EmployeeList({ onEdit }: { onEdit: (employee: Employee) => void }) {
     const [employees, setEmployees] = useState<Employee[]>([]);
+    const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+    const [employeeToDelete, setEmployeeToDelete] = useState<Employee | null>(null);
 
     const fetchEmployees = async () => {
         const res = await getEmployees();
@@ -19,9 +22,23 @@ export default function EmployeeList({ onEdit }: { onEdit: (employee: Employee) 
 
     useEffect(() => { fetchEmployees(); }, []);
 
-    const handleDelete = async (url: string) => {
-        await deleteEmployee(url);
-        fetchEmployees();
+    const handleDeleteClick = (employee: Employee) => {
+        setEmployeeToDelete(employee);
+        setDeleteDialogOpen(true);
+    };
+
+    const handleDeleteConfirm = async () => {
+        if (employeeToDelete) {
+            await deleteEmployee(employeeToDelete._links.self.href);
+            fetchEmployees();
+        }
+        setDeleteDialogOpen(false);
+        setEmployeeToDelete(null);
+    };
+
+    const handleDeleteCancel = () => {
+        setDeleteDialogOpen(false);
+        setEmployeeToDelete(null);
     };
 
     return (
@@ -44,7 +61,7 @@ export default function EmployeeList({ onEdit }: { onEdit: (employee: Employee) 
                         secondaryAction={
                             <>
                                 <Button aria-label='edit' id='EmpEditId' onClick={() => onEdit(emp)}>Edit</Button>
-                                <IconButton role='button' aria-label='delete' id='EmpDelete' edge="end" onClick={() => handleDelete(emp._links.self.href)}>
+                                <IconButton role='button' aria-label='delete' id='EmpDelete' edge="end" onClick={() => handleDeleteClick(emp)}>
                                     <DeleteIcon color='error' />
                                 </IconButton>
                             </>
@@ -58,6 +75,32 @@ export default function EmployeeList({ onEdit }: { onEdit: (employee: Employee) 
                 ))}
             </List>
             <Button variant="contained" color='secondary' onClick={fetchEmployees}>Refresh</Button>
+            
+            {/* Delete Confirmation Dialog */}
+            <Dialog
+                open={deleteDialogOpen}
+                onClose={handleDeleteCancel}
+                aria-labelledby="delete-dialog-title"
+                aria-describedby="delete-dialog-description"
+            >
+                <DialogTitle id="delete-dialog-title" sx={{ display: 'flex', alignItems: 'center', color: 'warning.main' }}>
+                    <WarningIcon sx={{ mr: 1, color: 'warning.main' }} />
+                    Confirm Delete
+                </DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="delete-dialog-description">
+                        Are you sure you want to delete "{employeeToDelete?.name}"? This action cannot be undone.
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleDeleteCancel} color="primary">
+                        Cancel
+                    </Button>
+                    <Button onClick={handleDeleteConfirm} color="error" variant="contained">
+                        Delete
+                    </Button>
+                </DialogActions>
+            </Dialog>
         </div>
     );
 }
