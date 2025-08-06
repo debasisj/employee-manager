@@ -21,23 +21,30 @@ export default function LoginForm({ onLoginSuccess }: LoginFormProps) {
     });
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
+    const [errorKey, setErrorKey] = useState(0);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setForm(prev => ({ ...prev, [name]: value }));
+        // Clear error when user starts typing
+        if (error) {
+            setError(null);
+        }
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setLoading(true);
-        setError(null);
 
         try {
             const response = await login(form);
             localStorage.setItem('authToken', response.token);
+            setError(null);
             onLoginSuccess();
         } catch (err: any) {
-            setError(err.response?.data?.message || 'Login failed');
+            const errorMessage = err.response?.data?.message || 'Login failed';
+            setErrorKey(prev => prev + 1); // Force re-render by changing key
+            setError(errorMessage);
         } finally {
             setLoading(false);
         }
@@ -60,7 +67,7 @@ export default function LoginForm({ onLoginSuccess }: LoginFormProps) {
                     </Typography>
 
                     {error && (
-                        <Alert severity="error" sx={{ mb: 2 }}>
+                        <Alert key={errorKey} severity="error" sx={{ mb: 2 }}>
                             {error}
                         </Alert>
                     )}
